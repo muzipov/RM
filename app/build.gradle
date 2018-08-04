@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "ru.britishdesign.rm"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -20,8 +20,20 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.android.support:design:27.0.1'
+
+    def nav_version = "1.0.0-alpha02"
+// use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-fragment:$nav_version"
+// use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$nav_version"
+// optional - Test helpers
+// use -ktx for Kotlin
+    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version"
+
 }
