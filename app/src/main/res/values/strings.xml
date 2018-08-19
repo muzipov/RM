@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">My UU (beta)</string>
     <string name="search_title">Search</string>
-    <string name="my_lessons">Мои занятия</string>
-    <string name="my_events">Мои события</string>
+    <string name="my_lessons">My classes</string>
+    <string name="my_events">My Events</string>
 
     <string name="view_navigation_open">Open</string>
     <string name="view_navigation_close">Close</string>
+
+    <string name="tab_item_histori">HISTORI</string>
+    <string name="tab_item_reminders">REMINDERS</string>
+    <string name="tab_item_todo">TODO</string>
+    <string name="tab_item_uu_events">UU EVENTS</string>
+
+
 </resources>
