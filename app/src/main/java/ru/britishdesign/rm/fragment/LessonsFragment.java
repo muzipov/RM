@@ -10,26 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.britishdesign.rm.R;
 import ru.britishdesign.rm.adapter.RemindListAdapter;
 import ru.britishdesign.rm.dto.RemindDTO;
 
-public class HistoriFragment extends AbstractTabFragment {
-    private static final int LAYOUT = R.layout.fragment_histori;
+public class LessonsFragment extends AbstractTabFragment {
+    private static final int LAYOUT = R.layout.fragment_lessons;
 
     private List<RemindDTO> data;
     private RemindListAdapter adapter;
 
-    public static HistoriFragment getInstance(Context context, List<RemindDTO> data) {
+    public static LessonsFragment getInstance(Context context, List<RemindDTO> data) {
 
         Bundle args = new Bundle();
-        HistoriFragment fragment = new HistoriFragment();
+        LessonsFragment fragment = new LessonsFragment();
         fragment.setArguments(args);
         fragment.setData(data);
         fragment.setContext(context);
-        fragment.setTitle(context.getString(R.string.tab_item_histori));
+        fragment.setTitle(context.getString(R.string.tab_item_lessons));
 
         return fragment;
     }
@@ -56,7 +57,8 @@ public class HistoriFragment extends AbstractTabFragment {
     public void setData(List<RemindDTO> data) {
         this.data = data;
     }
-    public void refreshData(List<RemindDTO> data){
+
+    public void refreshData(ArrayList<RemindDTO> data){
         adapter.setData(data);
         adapter.notifyDataSetChanged();
     }

@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import ru.britishdesign.rm.R;
 
 public class RemindersFragment extends AbstractTabFragment {
-    private static final int LAYOUT = R.layout.fragment_example;
+    private static final int LAYOUT = R.layout.fragment_events;
 
 
-    public static HistoriFragment getInstance(Context context) {
+    public static RemindersFragment getInstance(Context context) {
 
         Bundle args = new Bundle();
-        HistoriFragment fragment = new HistoriFragment();
+        RemindersFragment fragment = new RemindersFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setTitle(context.getString(R.string.tab_item_reminders));

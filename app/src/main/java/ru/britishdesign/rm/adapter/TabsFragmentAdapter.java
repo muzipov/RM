@@ -8,14 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import ru.britishdesign.rm.dto.RemindDTO;
 import ru.britishdesign.rm.fragment.AbstractTabFragment;
-import ru.britishdesign.rm.fragment.HistoriFragment;
+import ru.britishdesign.rm.fragment.LessonsFragment;
 import ru.britishdesign.rm.fragment.RemindersFragment;
-import ru.britishdesign.rm.fragment.TodoFragment;
 import ru.britishdesign.rm.fragment.UU_EventFragment;
 
 public class TabsFragmentAdapter extends FragmentPagerAdapter{
@@ -23,9 +21,9 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter{
     private Map<Integer, AbstractTabFragment> tabs;
     private Context context;
 
-    private HistoriFragment historiFragment;
+    private LessonsFragment lessonsFragment;
 
-    private List<RemindDTO> data;
+    private ArrayList<RemindDTO> data;
 
     public TabsFragmentAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -56,17 +54,17 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter{
 
     private void initTabsMap(Context context) {
 
-        HistoriFragment historiFragment = HistoriFragment.getInstance(context, data);
+        LessonsFragment lessonsFragment = LessonsFragment.getInstance(context, data);
 
         tabs = new HashMap<>();
-        tabs.put(0, historiFragment);
+        tabs.put(0, lessonsFragment.getInstance(context, data));
         tabs.put(1, RemindersFragment.getInstance(context));
-        tabs.put(2, TodoFragment.getInstance(context));
-        tabs.put(3, UU_EventFragment.getInstance(context));
+        tabs.put(2, UU_EventFragment.getInstance(context));
     }
 
-    public void setData(List<RemindDTO> data) {
+    public void setData(ArrayList data) {
         this.data = data;
-        historiFragment.refreshData(data);
+        lessonsFragment = (LessonsFragment) tabs.get(0);
+        lessonsFragment.refreshData(data);
     }
 }

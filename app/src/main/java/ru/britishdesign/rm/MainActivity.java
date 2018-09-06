@@ -1,5 +1,6 @@
 package ru.britishdesign.rm;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,12 +12,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 import ru.britishdesign.rm.adapter.TabsFragmentAdapter;
 import ru.britishdesign.rm.dto.RemindDTO;
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setTheme(R.style.AppDefault);
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
@@ -38,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
         initToolBar();
         initNavigationView();
         initTabs();
-
-
     }
+
 
     private void initToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //навигационная менюшка и фрагменты
+    //
     private void initNavigationView() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.view_navigation_open, R.string.view_navigation_close);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
@@ -78,8 +85,21 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
-                    case R.id.actionNotificationItem:
+                    case R.id.actionLessonsItem:
                         showNotificationTab();
+                        break;
+                    case R.id.actionRemindersItem:
+                        showRemindersTab();
+                        break;
+                    case R.id.actionEventsItem:
+                        showEventsTab();
+                        break;
+                    case R.id.actionSettingsItem:
+                        showSettingsLayout();
+                        break;
+                    case R.id.actionHelpItem:
+                        showHelpLayout();
+                        break;
                 }
 
                 return true;
@@ -87,25 +107,78 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showNotificationTab(){
+    private void showNotificationTab() {
+        viewPager.setCurrentItem(Constans.TAB_ONE);
+    }
 
+    private void showRemindersTab() {
         viewPager.setCurrentItem(Constans.TAB_TWO);
     }
 
-    private class RemindMeTask extends AsyncTask<Void, Void, RemindDTO>{
-        @Override
-        protected RemindDTO doInBackground(Void... params) {
-            RestTemplate template = new RestTemplate();
-            template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+    private void showEventsTab() {
+        viewPager.setCurrentItem(Constans.TAB_THREE);
+    }
 
-            return template.getForObject(Constans.URL.GET_REMIND_ITEM, RemindDTO.class);
+    private void showSettingsLayout() {
+        Intent intent = new Intent(MainActivity.this, Settings.class);
+        startActivity(intent);
+    }
+
+    private void showHelpLayout(){
+        Intent intent = new Intent(MainActivity.this, Help.class);
+        startActivity(intent);
+    }
+
+    //обращение к серверу
+    //
+    private class RemindMeTask extends AsyncTask<Void, Void, RemindDTO[]> {
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String resultJson = "";
+        ObjectMapper mapper = new ObjectMapper();
+        RemindDTO[] remindDTO;
+        private ArrayList dataM = new ArrayList<>();
+
+        private ProgressBar progressBar;
+
+        @Override
+        protected void onPreExecute() {
+            // [... Обновите индикатор хода выполнения, уведомления или другой
+            // элемент пользовательского интерфейса ]
+
+            progressBar = findViewById(R.id.progressBar);
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
-        protected void onPostExecute(RemindDTO remindDTO) {
-            List<RemindDTO> data = new ArrayList<>();
-            data.add(remindDTO);
-            adapter.setData(data);
+        protected RemindDTO[] doInBackground(Void... params) {
+            //Выполняем в отдельном потоке загрузку
+
+            RestTemplate template = new RestTemplate();
+            template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+            ///
+            try {
+                return template.getForObject(Constans.URL.GET_REMIND_ITEM, RemindDTO[].class);
+            } catch (Exception e) {
+                return remindDTO;
+            }
+        }
+
+
+        protected void onPostExecute(RemindDTO[] remindDTO) {
+            // этот метод выполняется в UI потоке
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+            ArrayList<RemindDTO[]> data = new ArrayList<>();
+            if (remindDTO != null) {
+
+                for (int i = 0; i < remindDTO.length; i++) {
+                    dataM.add(remindDTO[i]);
+                }
+            }
+            adapter.setData(dataM);
+
         }
     }
 }

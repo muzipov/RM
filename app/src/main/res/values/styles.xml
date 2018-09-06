@@ -10,4 +10,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ProgressBar" parent="AppTheme">
+        <item name="colorAccent">@color/colorPrimaryProgressBar</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="AppTheme">
+        <item name="colorAccent">@color/colorTabLayout</item>
+    </style>
+
 </resources>

@@ -2,14 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/actionNotificationItem"
-        android:orderInCategory="1"
+        android:id="@+id/actionLessonsItem"
+        android:orderInCategory="0"
         android:title="@string/my_lessons"
         android:icon="@drawable/message_bulleted"/>
+    <item
+        android:id="@+id/actionRemindersItem"
+        android:orderInCategory="1"
+        android:title="@string/my_reminders"
+        android:icon="@drawable/reminder"/>
 
     <item
-        android:orderInCategory="1"
+        android:id="@+id/actionEventsItem"
+        android:orderInCategory="2"
         android:title="@string/my_events"
         android:icon="@drawable/calendar_heart"/>
+    <item
+        android:id="@+id/actionSettingsItem"
+        android:orderInCategory="3"
+        android:title="@string/settings"
+        android:icon="@drawable/settings_outline"/>
+    <item
+        android:id="@+id/actionHelpItem"
+        android:orderInCategory="4"
+        android:title="@string/help"
+        android:icon="@drawable/lifebuoy"/>
+
+
 
 </menu>

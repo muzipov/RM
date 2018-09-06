@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import ru.britishdesign.rm.R;
 
 public class UU_EventFragment extends AbstractTabFragment {
-    private static final int LAYOUT = R.layout.fragment_example;
+    private static final int LAYOUT = R.layout.fragment_events;
 
 
-    public static HistoriFragment getInstance(Context context) {
+    public static UU_EventFragment getInstance(Context context) {
 
         Bundle args = new Bundle();
-        HistoriFragment fragment = new HistoriFragment();
+        UU_EventFragment fragment = new UU_EventFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setTitle(context.getString(R.string.tab_item_uu_events));

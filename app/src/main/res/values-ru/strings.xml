@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">My UU (beta)</string>
+    <string name="search_title">Найти</string>
+    <string name="my_lessons">Мои Занятия</string>
+    <string name="my_reminders">Мои напоминания</string>
+    <string name="my_events">Мои События</string>
+    <string name="settings">Мои Настройки</string>
+    <string name="help">Моя помощь</string>
+
+    <string name="view_navigation_open">Открыть</string>
+    <string name="view_navigation_close">Закрыть</string>
+
+    <string name="tab_item_lessons">Занятия</string>
+    <string name="tab_item_reminders">Напоминания</string>
+    <string name="tab_item_todo">Сделать</string>
+    <string name="tab_item_uu_events">UU события</string>
+
+    <string name="LangTitle">Язык</string>
+    <string name="LangDialogTitle">Выберете язык:</string>
+    <string name="LangSummary">Язык приложения.\nДля принятия изменений приложение будет перезапущено.</string>
+
+</resources>

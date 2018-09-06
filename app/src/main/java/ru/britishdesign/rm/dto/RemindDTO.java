@@ -1,14 +1,30 @@
 package ru.britishdesign.rm.dto;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RemindDTO {
 
+    @JsonProperty("id")
     private String id;
-    private String title;
-    private Date remindDate;
 
-    public RemindDTO() {
+    @JsonProperty("title")
+    private String title;
+
+    @JsonProperty("remindDate")
+    private String remindDate;
+
+    @JsonProperty("remindDetail")
+    private String remindDetail;
+
+
+    public RemindDTO(){
+
+    }
+    public RemindDTO(String id, String title, String remindDate, String remindDetail) {
+        this.id = id;
+        this.title = title;
+        this.remindDate = remindDate;
+        this.remindDetail = remindDetail;
     }
 
     public String getId() {
@@ -19,11 +35,11 @@ public class RemindDTO {
         this.id = id;
     }
 
-    public Date getRemindDate() {
+    public String getRemindDate() {
         return remindDate;
     }
 
-    public void setRemindDate(Date remindDate) {
+    public void setRemindDate(String remindDate) {
         this.remindDate = remindDate;
     }
 
@@ -38,4 +54,14 @@ public class RemindDTO {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getRemindDetail() {
+        return remindDetail;
+    }
+
+    public void setRemindDetail(String remindDetail) {
+        this.remindDetail = remindDetail;
+    }
 }
+
+
